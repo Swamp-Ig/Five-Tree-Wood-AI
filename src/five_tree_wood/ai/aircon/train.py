@@ -2,6 +2,7 @@
 Five Tree Wood AI model training utilities.
 """
 
+import logging
 import os
 from datetime import datetime
 
@@ -14,12 +15,14 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 from ..conf import get_config, get_config_dir
 
+logger = logging.getLogger(__name__)
+
 
 def train_model():
     """Train the aircon AI model using InfluxDB data."""
     df = _fetch_data()
 
-    print("Training model...")
+    logger.debug("Training model...")
 
     # Define features and target
 
@@ -49,7 +52,7 @@ def train_model():
     importances = model.feature_importances_
     features = x_features.columns
     for name, score in zip(features, importances):
-        print(f"{name}: {score:.4f}")
+        logger.debug("%s: %.4f", name, score)
 
     # Make predictions and calculate metrics
     y_pred = model.predict(x_features)
@@ -57,10 +60,10 @@ def train_model():
     mse = mean_squared_error(y_target, y_pred)
     rmse = np.sqrt(mse)
     r2 = r2_score(y_target, y_pred)
-    print("Mean Absolute Error (MAE):", mae)
-    print("Mean Squared Error (MSE):", mse)
-    print("Root Mean Squared Error (RMSE):", rmse)
-    print("R² Score:", r2)
+    logger.debug("Mean Absolute Error (MAE): %s", mae)
+    logger.debug("Mean Squared Error (MSE): %s", mse)
+    logger.debug("Root Mean Squared Error (RMSE): %s", rmse)
+    logger.debug("R² Score: %s", r2)
 
     # Write training information to log file
     log_path = os.path.join(conf_dir, "training.log")
@@ -83,7 +86,7 @@ def train_model():
             log_file.write(f"  {name}: {score:.4f}\n")
         log_file.write("\n")
 
-    print(f"Training log written to {log_path}")
+    logger.debug("Training log written to %s", log_path)
 
     # Save the trained model
     # Create conf directory and set up file paths
@@ -91,7 +94,7 @@ def train_model():
     model_path = os.path.join(conf_dir, "aircon_model.pkl")
 
     joblib.dump(model, model_path)
-    print(f"Model saved as {model_path}")
+    logger.debug("Model saved as %s", model_path)
 
     return model, x_features.columns.tolist()
 
@@ -158,7 +161,7 @@ def _fetch_data(start="-3y"):
         else:
             df = result
 
-    print("Formatting data...")
+    logger.debug("Formatting data...")
 
     # Ensure time is datetime
     df["time"] = pd.to_datetime(df["time"])

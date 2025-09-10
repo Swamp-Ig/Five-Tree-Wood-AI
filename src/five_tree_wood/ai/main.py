@@ -4,6 +4,7 @@ Aircon AI Training Script and REST API
 """
 
 import argparse
+import logging
 import sys
 import os
 from datetime import datetime
@@ -325,6 +326,17 @@ def main():
     config_dir = os.environ.get('FIVTREEWD_CONFIG_DIR') or args.conf_dir
     if config_dir:
         set_config_dir(config_dir)
+
+    # Configure logging - enable debug logging for CLI commands
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        handlers=[logging.StreamHandler()]
+    )
+
+    # Set library loggers to WARNING level to reduce noise
+    logging.getLogger('influxdb_client').setLevel(logging.WARNING)
+    logging.getLogger('urllib3').setLevel(logging.WARNING)
 
     # Execute commands
     if args.command == "api":

@@ -2,6 +2,7 @@
 Prediction utilities for Five Tree Wood AI.
 """
 
+import logging
 import os
 
 import joblib
@@ -9,6 +10,8 @@ import numpy as np
 import pandas as pd
 
 from ..conf import get_config_dir
+
+logger = logging.getLogger(__name__)
 
 
 def _load_model():
@@ -23,7 +26,7 @@ def _load_model():
                 "Please train the model first."
             )
         _load_model.cached_model = joblib.load(model_path)
-        print(f"Model loaded from {model_path}")
+        logger.debug("Model loaded from %s", model_path)
     return _load_model.cached_model
 
 
@@ -37,7 +40,7 @@ def verify_model_loaded():
         joblib.externals.loky.process_executor.TerminatedWorkerError,
         joblib.externals.loky.process_executor.BrokenProcessPool,
     ) as e:
-        print(f"Model loading failed: {e}")
+        logger.debug("Model loading failed: %s", e)
         return False
 
 
