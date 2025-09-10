@@ -1,11 +1,11 @@
-pandas>=2.3.2
+pandas>=2.3
 scikit_learn>=1.7
 packaging>=25.0
 influxdb_client>=1.49
-flask>=3.1.2
+flask>=3.1
 
 # Development tools
-black>=24.0.0
-isort>=5.13.0
-pylint>=3.2.0
-autopep8>=2.3.0
+black>=24.0
+isort>=5.13
+pylint>=3.2
+autopep8>=2.3

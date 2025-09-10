@@ -16,24 +16,23 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "five-tree-wood-ai"
-version = "1.0.0"
+version = "1.0.1"
 description = "Five Tree Wood AI - AI utilities for home assistant"
 authors = [
     {name = "Penny Wood", email = "github@ninjateaparty.com"}
 ]
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
 requires-python = ">=3.12"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
-    "pandas>=2.3.2",
-    "scikit_learn>=1.7.1",
+    "pandas>=2.3",
+    "scikit_learn>=1.7",
     "packaging>=25.0",
     "influxdb-client>=1.49",
     "flask>=3.1.2",
@@ -41,11 +40,11 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "black>=24.0.0",
-    "isort>=5.13.0",
-    "pylint>=3.2.0",
-    "autopep8>=2.3.0",
-    "pytest>=8.0.0",
+    "black>=24.0",
+    "isort>=5.13",
+    "pylint>=3.2",
+    "autopep8>=2.3",
+    "pytest>=8.0",
 ]
 
 [project.scripts]
