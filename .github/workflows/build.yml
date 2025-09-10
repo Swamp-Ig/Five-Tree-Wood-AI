@@ -5,13 +5,19 @@ on:
     branches:
       - main
     paths:
-      - "five_tree_wood_ai/**"
+      - "config.yaml"
+      - "Dockerfile"
+      - "run.sh"
+      - "src/**"
       - ".github/workflows/build.yml"
   pull_request:
     branches:
       - main
     paths:
-      - "five_tree_wood_ai/**"
+      - "config.yaml"
+      - "Dockerfile"
+      - "run.sh"
+      - "src/**"
       - ".github/workflows/build.yml"
   release:
     types: [published]
@@ -36,8 +42,6 @@ jobs:
       - name: 🚀 Run add-on information action
         id: information
         uses: frenck/action-addon-information@v1.4
-        with:
-          path: "./five_tree_wood_ai"
 
   build:
     name: Build ${{ matrix.architecture }}
@@ -69,10 +73,10 @@ jobs:
         id: flags
         run: |
           echo "date=$(date +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_OUTPUT
-          from=$(yq eval ".build_from.${{ matrix.architecture }}" "five_tree_wood_ai/build.yaml" | head -1)
+          from=$(yq eval ".build_from.${{ matrix.architecture }}" "build.yaml" | head -1)
           echo "from=${from}" >> $GITHUB_OUTPUT
           echo "repository_owner_lower=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
-          
+
           if [[ "${{ matrix.architecture}}" = "amd64" ]]; then
             echo "platform=linux/amd64" >> $GITHUB_OUTPUT
           elif [[ "${{ matrix.architecture }}" = "i386" ]]; then
@@ -98,8 +102,8 @@ jobs:
         with:
           push: true
           platforms: ${{ steps.flags.outputs.platform }}
-          file: five_tree_wood_ai/Dockerfile
-          context: five_tree_wood_ai
+          file: Dockerfile
+          context: .
           cache-from: |
             type=local,src=/tmp/.docker-cache
             ghcr.io/${{ steps.flags.outputs.repository_owner_lower }}/five-tree-wood-ai-${{ matrix.architecture }}:edge
