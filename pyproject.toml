@@ -33,8 +33,7 @@ classifiers = [
 ]
 dependencies = [
     "pandas>=2.3.2",
-    "scikit-learn>=1.7.1",
-    "skl2onnx>=1.19",
+    "scikit_learn>=1.7.1",
     "packaging>=25.0",
     "influxdb-client>=1.49",
     "flask>=3.1.2",
@@ -50,7 +49,7 @@ dev = [
 ]
 
 [project.scripts]
-aircon-ai = "main:main"
+five-tree-wood-ai = "five_tree_wood.ai.main:main"
 
 [project.urls]
 Homepage = "https://github.com/ninjateaparty/aircon-ai"
