@@ -18,7 +18,7 @@ Five Tree Wood AI is a machine learning model for predicting indoor temperature 
 
 1. In Home Assistant, go to **Supervisor** → **Add-on Store**
 2. Click the **⋮** menu → **Repositories**
-3. Add this repository URL: `https://github.com/pennyw00d/five-tree-wood-ai`
+3. Add this repository URL: `https://github.com/Swamp-Ig/five-tree-wood-ai`
 4. Find "Five Tree Wood AI" in the add-on store and click **Install**
 5. Configure the add-on (see Configuration section)
 6. Start the add-on
