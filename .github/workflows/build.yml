@@ -24,6 +24,8 @@ jobs:
       - name: 🚀 Run add-on information action
         id: information
         uses: frenck/action-addon-information@v1.4.2
+        with:
+          path: "./five_tree_wood_ai"
 
   build:
     name: Build ${{ matrix.architecture }}
@@ -55,7 +57,7 @@ jobs:
         id: flags
         run: |
           echo "date=$(date +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_OUTPUT
-          from=$(yq eval ".build_from.${{ matrix.architecture }}" "config.yaml" | head -1)
+          from=$(yq eval ".build_from.${{ matrix.architecture }}" "five_tree_wood_ai/build.yaml" | head -1)
           echo "from=${from}" >> $GITHUB_OUTPUT
 
           if [[ "${{ matrix.architecture}}" = "amd64" ]]; then
@@ -85,7 +87,8 @@ jobs:
         with:
           push: true
           platforms: ${{ steps.flags.outputs.platform }}
-          file: Dockerfile
+          file: five_tree_wood_ai/Dockerfile
+          context: five_tree_wood_ai
           cache-from: |
             type=local,src=/tmp/.docker-cache
             ghcr.io/${{ github.repository_owner }}/five-tree-wood-ai-${{ matrix.architecture }}:edge
