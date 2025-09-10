@@ -32,4 +32,4 @@ ports:
   8099/tcp: 8099
 ports_description:
   8099/tcp: Five Tree Wood AI REST API
-image: ghcr.io/Swamp-Ig/five-tree-wood-ai-{arch}
+#image: ghcr.io/Swamp-Ig/five-tree-wood-ai-{arch}
